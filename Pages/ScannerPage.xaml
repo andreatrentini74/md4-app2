@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewmodels="clr-namespace:QRBarcodeScannerApp.ViewModels"
+             xmlns:converters="clr-namespace:QRBarcodeScannerApp.Converters"
+             x:DataType="viewmodels:ScannerViewModel"
+             x:Class="QRBarcodeScannerApp.Pages.ScannerPage"
+             Title="Scanner QR e Barcode">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InverseBoolConverter" />
+            <toolkit:IsStringNotNullOrEmptyConverter x:Key="IsStringNotNullOrEmptyConverter" />
+            <converters:MessageColorConverter x:Key="MessageColorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Padding="20">
+
+            <Label Text="Scanner QR Code e Barcode" 
+                   FontSize="24" 
+                   HorizontalOptions="Center" 
+                   Margin="0,0,0,20"/>
+
+            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="10" RowSpacing="20">
+                <Button Text="Scansiona QR Code" 
+                        Command="{Binding ScanQRCommand}"
+                        IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
+                        BackgroundColor="#512BD4"
+                        TextColor="White"
+                        Grid.Column="0"
+                        Grid.Row="0"/>
+
+                <Button Text="Scansiona Barcode" 
+                        Command="{Binding ScanBarcodeCommand}"
+                        IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
+                        BackgroundColor="#512BD4"
+                        TextColor="White"
+                        Grid.Column="1"
+                        Grid.Row="0"/>
+            </Grid>
+
+            <Border Padding="10" Margin="0,20,0,0">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="QR Code:" FontAttributes="Bold"/>
+                    <Label Text="{Binding QRCode}" TextColor="DarkBlue">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label"
+                                         Binding="{Binding QRCode, Converter={StaticResource IsStringNotNullOrEmptyConverter}}"
+                                         Value="False">
+                                <Setter Property="Text" Value="Non ancora scansionato" />
+                                <Setter Property="TextColor" Value="Gray" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+
+                    <Label Text="Barcode:" FontAttributes="Bold" Margin="0,10,0,0"/>
+                    <Label Text="{Binding Barcode}" TextColor="DarkBlue">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label"
+                                         Binding="{Binding Barcode, Converter={StaticResource IsStringNotNullOrEmptyConverter}}"
+                                         Value="False">
+                                <Setter Property="Text" Value="Non ancora scansionato" />
+                                <Setter Property="TextColor" Value="Gray" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+
+                    <Label Text="Risultato concatenato:" FontAttributes="Bold" Margin="0,10,0,0"/>
+                    <Label TextColor="DarkBlue">
+                        <Label.Text>
+                            <MultiBinding StringFormat="{}{0}{1}">
+                                <Binding Path="QRCode" />
+                                <Binding Path="Barcode" />
+                            </MultiBinding>
+                        </Label.Text>
+                        <Label.Triggers>
+                            <MultiTrigger TargetType="Label">
+                                <MultiTrigger.Conditions>
+                                    <BindingCondition Binding="{Binding QRCode, Converter={StaticResource IsStringNotNullOrEmptyConverter}}" Value="False" />
+                                    <BindingCondition Binding="{Binding Barcode, Converter={StaticResource IsStringNotNullOrEmptyConverter}}" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Text" Value="Nessun codice scansionato" />
+                                <Setter Property="TextColor" Value="Gray" />
+                            </MultiTrigger>
+                        </Label.Triggers>
+                    </Label>
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Text="Invia Dati" 
+                    Command="{Binding SendDataCommand}"
+                    IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
+                    BackgroundColor="Green"
+                    TextColor="White"
+                    Margin="0,20,0,0"/>
+
+            <Button Text="Configurazione" 
+                    Command="{Binding NavigateToConfigCommand}"
+                    IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
+                    BackgroundColor="DarkBlue"
+                    TextColor="White"/>
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}" 
+                               IsVisible="{Binding IsBusy}"
+                               HorizontalOptions="Center"/>
+
+            <Label Text="{Binding StatusMessage}" 
+                   HorizontalOptions="Center"
+                   FontSize="16"
+                   TextColor="{Binding StatusMessage, Converter={StaticResource MessageColorConverter}}"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

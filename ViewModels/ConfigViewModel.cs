@@ -1,0 +1,159 @@
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows.Input;
+using QRBarcodeScannerApp.Services;
+
+namespace QRBarcodeScannerApp.ViewModels
+{
+    public class ConfigViewModel : INotifyPropertyChanged
+    {
+        private AppSettings _settings;
+        private string _apiEndpoint;
+        private ushort _port;
+        private string _statusMessage;
+        private bool _isBusy;
+        private int _ratio;
+        private int _positionX;
+        private int _positionY;
+
+        public ConfigViewModel(AppSettings settings)
+        {
+            _settings = settings;
+
+            IPAddress = _settings.IPAddress;
+            Port = _settings.Port;
+            Ratio = _settings.Ratio;
+            PositionX = _settings.PositionX;
+            PositionY = _settings.PositionY;
+
+            SaveCommand = new Command(SaveSettings);
+            BackCommand = new Command(async () => await Shell.Current.GoToAsync(".."));
+        }
+
+        public string IPAddress
+        {
+            get => _apiEndpoint;
+            set
+            {
+                if (_apiEndpoint != value)
+                {
+                    _apiEndpoint = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public ushort Port
+        {
+            get => _port;
+            set
+            {
+                if (_port != value)
+                {
+                    _port = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public int Ratio
+        {
+            get => _ratio;
+            set
+            {
+                if (_ratio != value)
+                {
+                    _ratio = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public int PositionX
+        {
+            get => _positionX;
+            set
+            {
+                if (_positionX != value)
+                {
+                    _positionX = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public int PositionY
+        {
+            get => _positionY;
+            set
+            {
+                if (_positionY != value)
+                {
+                    _positionY = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+        public string StatusMessage
+        {
+            get => _statusMessage;
+            set
+            {
+                if (_statusMessage != value)
+                {
+                    _statusMessage = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set
+            {
+                if (_isBusy != value)
+                {
+                    _isBusy = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public ICommand SaveCommand { get; }
+        public ICommand BackCommand { get; }
+
+        private void SaveSettings()
+        {
+            IsBusy = true;
+
+            try
+            {
+                _settings.IPAddress = IPAddress;
+                _settings.Port = Port;
+                _settings.Ratio = Ratio;
+                _settings.PositionX = PositionX;
+                _settings.PositionY = PositionY;
+                _settings.Save();
+                StatusMessage = "Impostazioni salvate con successo!";
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = $"Errore nel salvataggio delle impostazioni: {ex.Message}";
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+}

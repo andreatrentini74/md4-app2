@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="QRBarcodeScannerApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:QRBarcodeScannerApp.Pages"
+    Shell.FlyoutBehavior="Disabled">
+
+    <ShellContent
+        Title="Scanner"
+        ContentTemplate="{DataTemplate local:ScannerPage}"
+        Route="ScannerPage" />
+
+    <ShellContent
+        Title="Configurazione"
+        ContentTemplate="{DataTemplate local:ConfigPage}"
+        Route="ConfigPage" />
+
+</Shell>
