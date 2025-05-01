@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="QRBarcodeScannerApp.Views.CustomToolbar"
+             x:Name="this">
+    <Grid BackgroundColor="{StaticResource HdqDarkGreen}" Padding="10" HeightRequest="60">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="60"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Logo a sinistra -->
+        <Image Source="splash.png"
+               HeightRequest="40"
+               VerticalOptions="Center" />
+
+        <!-- Titolo dinamico al centro -->
+        <Label Text="{Binding Title, Source={x:Reference this}}"
+               Grid.Column="1"
+               TextColor="White"
+               Style="{StaticResource TitleLabelStyle}"/>
+
+        <Label Grid.Column="2"
+               Style="{StaticResource SubtitleLabelStyle}"
+               TextColor="White"
+               VerticalTextAlignment="Center"
+               HorizontalTextAlignment="Center">
+            <Label.FormattedText>
+                <FormattedString>
+                    <FormattedString.Spans>
+                        <Span Text="Ver. " />
+                        <Span Text="{Binding Version, Source={x:Reference this}}" />
+                    </FormattedString.Spans>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+    </Grid>
+</ContentView>

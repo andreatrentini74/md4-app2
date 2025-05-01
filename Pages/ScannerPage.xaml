@@ -4,9 +4,10 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewmodels="clr-namespace:QRBarcodeScannerApp.ViewModels"
              xmlns:converters="clr-namespace:QRBarcodeScannerApp.Converters"
+             xmlns:views="clr-namespace:QRBarcodeScannerApp.Views"
              x:DataType="viewmodels:ScannerViewModel"
              x:Class="QRBarcodeScannerApp.Pages.ScannerPage"
-             Title="Scanner QR e Barcode">
+             Title="Stampa Codici">
     <ContentPage.Resources>
         <ResourceDictionary>
             <toolkit:InvertedBoolConverter x:Key="InverseBoolConverter" />
@@ -14,103 +15,90 @@
             <converters:MessageColorConverter x:Key="MessageColorConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-
-    <ScrollView>
-        <VerticalStackLayout Spacing="20" Padding="20">
-
-            <Label Text="Scanner QR Code e Barcode" 
-                   FontSize="24" 
-                   HorizontalOptions="Center" 
-                   Margin="0,0,0,20"/>
-
-            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="10" RowSpacing="20">
-                <Button Text="Scansiona QR Code" 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <views:CustomToolbar Title="Stampa Codici"></views:CustomToolbar>
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="20" Padding="20">
+                <Grid Margin="0,10,0,0" ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="10">
+                    <Button Text="{Binding Scansiona_QR_Code}" 
                         Command="{Binding ScanQRCommand}"
                         IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
-                        BackgroundColor="#512BD4"
-                        TextColor="White"
+                        Style="{StaticResource MinorButton}"
                         Grid.Column="0"
                         Grid.Row="0"/>
 
-                <Button Text="Scansiona Barcode" 
+                    <Button Text="{Binding Scansiona_Barcode}" 
                         Command="{Binding ScanBarcodeCommand}"
                         IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
-                        BackgroundColor="#512BD4"
-                        TextColor="White"
+                        Style="{StaticResource MinorButton}"
                         Grid.Column="1"
                         Grid.Row="0"/>
-            </Grid>
+                </Grid>
 
-            <Border Padding="10" Margin="0,20,0,0">
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="QR Code:" FontAttributes="Bold"/>
-                    <Label Text="{Binding QRCode}" TextColor="DarkBlue">
-                        <Label.Triggers>
-                            <DataTrigger TargetType="Label"
+                <Border Padding="10" Margin="0,20,0,0">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Ultimo QR Code:" FontAttributes="Bold"/>
+                        <Label Text="{Binding QRCode}">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label"
                                          Binding="{Binding QRCode, Converter={StaticResource IsStringNotNullOrEmptyConverter}}"
                                          Value="False">
-                                <Setter Property="Text" Value="Non ancora scansionato" />
-                                <Setter Property="TextColor" Value="Gray" />
-                            </DataTrigger>
-                        </Label.Triggers>
-                    </Label>
+                                    <Setter Property="Text" Value="Non ancora scansionato" />
+                                    <Setter Property="TextColor" Value="Gray" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
 
-                    <Label Text="Barcode:" FontAttributes="Bold" Margin="0,10,0,0"/>
-                    <Label Text="{Binding Barcode}" TextColor="DarkBlue">
-                        <Label.Triggers>
-                            <DataTrigger TargetType="Label"
+                        <Label Text="Ultimo Barcode:" FontAttributes="Bold" Margin="0,10,0,0"/>
+                        <Label Text="{Binding Barcode}">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label"
                                          Binding="{Binding Barcode, Converter={StaticResource IsStringNotNullOrEmptyConverter}}"
                                          Value="False">
-                                <Setter Property="Text" Value="Non ancora scansionato" />
-                                <Setter Property="TextColor" Value="Gray" />
-                            </DataTrigger>
-                        </Label.Triggers>
-                    </Label>
+                                    <Setter Property="Text" Value="Non ancora scansionato" />
+                                    <Setter Property="TextColor" Value="Gray" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
 
-                    <Label Text="Risultato concatenato:" FontAttributes="Bold" Margin="0,10,0,0"/>
-                    <Label TextColor="DarkBlue">
-                        <Label.Text>
-                            <MultiBinding StringFormat="{}{0}{1}">
-                                <Binding Path="QRCode" />
-                                <Binding Path="Barcode" />
-                            </MultiBinding>
-                        </Label.Text>
-                        <Label.Triggers>
-                            <MultiTrigger TargetType="Label">
-                                <MultiTrigger.Conditions>
-                                    <BindingCondition Binding="{Binding QRCode, Converter={StaticResource IsStringNotNullOrEmptyConverter}}" Value="False" />
-                                    <BindingCondition Binding="{Binding Barcode, Converter={StaticResource IsStringNotNullOrEmptyConverter}}" Value="False" />
-                                </MultiTrigger.Conditions>
-                                <Setter Property="Text" Value="Nessun codice scansionato" />
-                                <Setter Property="TextColor" Value="Gray" />
-                            </MultiTrigger>
-                        </Label.Triggers>
-                    </Label>
-                </VerticalStackLayout>
-            </Border>
+                        <Label Text="Ultima stampa:" FontAttributes="Bold" Margin="0,10,0,0"/>
+                        <Label Text="{Binding LastPrint}">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label"
+                                         Binding="{Binding LastPrint, Converter={StaticResource IsStringNotNullOrEmptyConverter}}"
+                                         Value="False">
+                                    <Setter Property="Text" Value="Nessun codice ancora stampato" />
+                                    <Setter Property="TextColor" Value="Gray" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                    </VerticalStackLayout>
+                </Border>
 
-            <Button Text="Invia Dati" 
+                <Button Text="Invia Dati" 
                     Command="{Binding SendDataCommand}"
                     IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
-                    BackgroundColor="Green"
-                    TextColor="White"
                     Margin="0,20,0,0"/>
 
-            <Button Text="Configurazione" 
+                <Button Text="Configurazione" 
                     Command="{Binding NavigateToConfigCommand}"
                     IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
-                    BackgroundColor="DarkBlue"
-                    TextColor="White"/>
+                    Style="{StaticResource MinorButton}"/>
 
-            <ActivityIndicator IsRunning="{Binding IsBusy}" 
+                <ActivityIndicator IsRunning="{Binding IsBusy}" 
                                IsVisible="{Binding IsBusy}"
                                HorizontalOptions="Center"/>
 
-            <Label Text="{Binding StatusMessage}" 
+                <Label Text="{Binding StatusMessage}" 
                    HorizontalOptions="Center"
                    FontSize="16"
                    TextColor="{Binding StatusMessage, Converter={StaticResource MessageColorConverter}}"/>
 
-        </VerticalStackLayout>
-    </ScrollView>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>

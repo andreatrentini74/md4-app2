@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/32bitsrl-md4-app-9b7ac2d35c5e
+/md4-app.zip

@@ -14,6 +14,7 @@ namespace QRBarcodeScannerApp.ViewModels
     {
         private string _qrCode;
         private string _barcode;
+        private string _lastPrint;
         private string _statusMessage;
         private bool _isBusy;
 
@@ -34,7 +35,8 @@ namespace QRBarcodeScannerApp.ViewModels
             {
                 try
                 {
-                    await Shell.Current.GoToAsync(nameof(ConfigPage));
+                    if (await App.appShell.DisplayPromptAsync("Password", "Inserire la password per modificare le impostazioni:", "Ok", "Annulla", keyboard: Keyboard.Plain) == "MC360MD4")
+                        await Shell.Current.GoToAsync(nameof(ConfigPage));
                 }
                 catch (Exception ex)
                 {
@@ -43,6 +45,8 @@ namespace QRBarcodeScannerApp.ViewModels
             });
         }
 
+        public string Scansiona_QR_Code { get => "Scansiona QR Code"; }
+        public string Scansiona_Barcode { get => "Scansiona Barcode"; }
         public string QRCode
         {
             get => _qrCode;
@@ -67,6 +71,19 @@ namespace QRBarcodeScannerApp.ViewModels
                     _barcode = value;
                     OnPropertyChanged();
                     ((Command)SendDataCommand).ChangeCanExecute();
+                }
+            }
+        }
+
+        public string LastPrint
+        {
+            get => _lastPrint;
+            set
+            {
+                if (_lastPrint != value)
+                {
+                    _lastPrint = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -110,7 +127,7 @@ namespace QRBarcodeScannerApp.ViewModels
 
                 // Utilizziamo il componente CameraBarcodeReaderView di ZXing.Net.Maui
                 // che è compatibile con AndroidX
-                var result = await OpenBarcodeReaderPage(BarcodeFormat.QrCode);
+                var result = await OpenBarcodeReaderPage(BarcodeFormat.QrCode, Scansiona_QR_Code);
 
                 if (!string.IsNullOrEmpty(result))
                 {
@@ -140,7 +157,7 @@ namespace QRBarcodeScannerApp.ViewModels
 
                 // Filtriamo solo per i formati barcode standard
                 var formats = BarcodeFormat.Code128 | BarcodeFormat.Code39 | BarcodeFormat.Ean13 | BarcodeFormat.Ean8;
-                var result = await OpenBarcodeReaderPage(formats);
+                var result = await OpenBarcodeReaderPage(formats, Scansiona_Barcode);
 
                 if (!string.IsNullOrEmpty(result))
                 {
@@ -162,7 +179,7 @@ namespace QRBarcodeScannerApp.ViewModels
             }
         }
 
-        private async Task<string> OpenBarcodeReaderPage(BarcodeFormat formats)
+        private async Task<string> OpenBarcodeReaderPage(BarcodeFormat formats, string title)
         {
             // Creiamo una TaskCompletionSource per aspettare il risultato
             var tcs = new TaskCompletionSource<string>();
@@ -170,13 +187,24 @@ namespace QRBarcodeScannerApp.ViewModels
             // Creiamo una nuova pagina con il camera view reader
             var scanPage = new ContentPage
             {
-                Title = "Scansione"
+                Title = title
+            };
+
+            // Creiamo un contenitore per i controlli
+            var grid = new Grid
+            {
+                RowDefinitions =
+                {
+                    new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) },
+                    new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
+                    new RowDefinition { Height = new GridLength(100, GridUnitType.Absolute) }
+                }
             };
 
             var barcodeReader = new CameraBarcodeReaderView
             {
-                VerticalOptions = LayoutOptions.FillAndExpand,
-                HorizontalOptions = LayoutOptions.FillAndExpand,
+                //VerticalOptions = LayoutOptions.FillAndExpand,
+                //HorizontalOptions = LayoutOptions.FillAndExpand,
                 Options = new BarcodeReaderOptions { Formats = formats, AutoRotate = true, Multiple = false, TryHarder = true },
                 IsDetecting = true
             };
@@ -192,6 +220,9 @@ namespace QRBarcodeScannerApp.ViewModels
 
             cancelButton.Clicked += async (s, e) =>
             {
+                barcodeReader.IsDetecting = false;
+                barcodeReader.IsEnabled = false;
+                grid.Remove(barcodeReader);
                 await Shell.Current.Navigation.PopModalAsync();
                 tcs.SetResult(string.Empty);
             };
@@ -203,7 +234,8 @@ namespace QRBarcodeScannerApp.ViewModels
                 {
                     // Disabilitiamo il rilevamento per evitare rilevamenti multipli
                     barcodeReader.IsDetecting = false;
-
+                    barcodeReader.IsEnabled = false;
+                    
                     // Otteniamo il valore del codice
                     string value = result.Value;
 
@@ -215,18 +247,9 @@ namespace QRBarcodeScannerApp.ViewModels
                 }
             };
 
-            // Creiamo un contenitore per i controlli
-            var grid = new Grid
-            {
-                RowDefinitions =
-                {
-                    new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
-                    new RowDefinition { Height = new GridLength(100, GridUnitType.Absolute) }
-                }
-            };
-
-            grid.Add(barcodeReader, 0, 0);
-            grid.Add(cancelButton, 0, 1);
+            grid.Add(new Views.CustomToolbar { Title = title }, 0, 0);
+            grid.Add(barcodeReader, 0, 1);
+            grid.Add(cancelButton, 0, 2);
 
             scanPage.Content = grid;
 
@@ -241,6 +264,8 @@ namespace QRBarcodeScannerApp.ViewModels
         {
             try
             {
+                if (!await App.appShell.DisplayAlert("Stampa", "Vuoi stampare i codici letti?", "Conferma", "Annulla"))
+                    return;
                 IsBusy = true;
                 StatusMessage = "Invio dati in corso...";
 
@@ -254,9 +279,13 @@ namespace QRBarcodeScannerApp.ViewModels
 
                 if (success)
                 {
+                    LastPrint = DateTime.Now.ToString("g");
                     StatusMessage = "Dati inviati con successo!";
-                    //QRCode = string.Empty;
-                    //Barcode = string.Empty;
+                    if (await App.appShell.DisplayAlert("Azzeramento", "Vuoi azzerare i codici letti?", "Conferma", "Annulla"))
+                    {
+                        QRCode = string.Empty;
+                        Barcode = string.Empty;
+                    }
                 }
                 else
                 {

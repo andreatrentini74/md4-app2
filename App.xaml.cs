@@ -4,6 +4,7 @@ namespace QRBarcodeScannerApp
 {
     public partial class App : Application
     {
+        public static AppShell appShell;
         public App()
         {
             InitializeComponent();
@@ -11,7 +12,7 @@ namespace QRBarcodeScannerApp
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            return new Window(new AppShell());
+            return new Window(appShell = new AppShell());
         }
         protected async override void OnStart()
         {
