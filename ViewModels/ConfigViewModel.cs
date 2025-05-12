@@ -9,7 +9,7 @@ namespace QRBarcodeScannerApp.ViewModels
     {
         private AppSettings _settings;
         private string _apiEndpoint;
-        private ushort _port;
+        private int _port;
         private string _statusMessage;
         private bool _isBusy;
         private int _ratio;
@@ -43,7 +43,7 @@ namespace QRBarcodeScannerApp.ViewModels
             }
         }
 
-        public ushort Port
+        public int Port
         {
             get => _port;
             set

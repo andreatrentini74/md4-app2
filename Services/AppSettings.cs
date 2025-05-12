@@ -5,7 +5,7 @@ namespace QRBarcodeScannerApp.Services
     public class AppSettings
     {
         public string IPAddress { get; set; }
-        public ushort Port { get; set; }
+        public int Port { get; set; }
         public int Ratio { get; set; }
         public int PositionX { get; set; }
         public int PositionY { get; set; }
