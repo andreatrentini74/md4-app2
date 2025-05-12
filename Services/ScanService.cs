@@ -12,7 +12,12 @@ namespace QRBarcodeScannerApp.Services
         public ScanService(AppSettings settings)
         {
             _settings = settings;
-            _httpClient = new HttpClient();
+            var handler = new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+            };
+            _httpClient = new HttpClient(handler);
+            _httpClient.Timeout = TimeSpan.FromSeconds(5);
         }
 
         public async Task<bool> SendScanResultAsync(string scanResult)

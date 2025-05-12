@@ -23,8 +23,10 @@ namespace QRBarcodeScannerApp.ViewModels
 
         public ScannerViewModel(AppSettings settings)
         {
+#if DEBUG
             _qrCode = "22/02738_A316-TU101X5,74_003177_Y";
-            _barcode = "22/36983_3394224-0000|1_0";
+            _barcode = "22/36983_3394224-0000";
+#endif
             _settings = settings;
             _scanService = new ScanService(_settings);
 
@@ -206,7 +208,7 @@ namespace QRBarcodeScannerApp.ViewModels
                 //VerticalOptions = LayoutOptions.FillAndExpand,
                 //HorizontalOptions = LayoutOptions.FillAndExpand,
                 Options = new BarcodeReaderOptions { Formats = formats, AutoRotate = true, Multiple = false, TryHarder = true },
-                IsDetecting = true
+                IsDetecting = true,
             };
 
             // Aggiungiamo un pulsante di cancellazione
@@ -220,9 +222,13 @@ namespace QRBarcodeScannerApp.ViewModels
 
             cancelButton.Clicked += async (s, e) =>
             {
-                barcodeReader.IsDetecting = false;
-                barcodeReader.IsEnabled = false;
-                grid.Remove(barcodeReader);
+                await MainThread.InvokeOnMainThreadAsync(() =>
+                {
+                    barcodeReader.IsDetecting = false;
+                    barcodeReader.IsEnabled = false;
+                    grid.Remove(barcodeReader);
+                });
+
                 await Shell.Current.Navigation.PopModalAsync();
                 tcs.SetResult(string.Empty);
             };
@@ -233,9 +239,13 @@ namespace QRBarcodeScannerApp.ViewModels
                 if (e.Results.FirstOrDefault() is BarcodeResult result)
                 {
                     // Disabilitiamo il rilevamento per evitare rilevamenti multipli
-                    barcodeReader.IsDetecting = false;
-                    barcodeReader.IsEnabled = false;
-                    
+
+                    await MainThread.InvokeOnMainThreadAsync(() =>
+                    {
+                        barcodeReader.IsDetecting = false;
+                        barcodeReader.IsEnabled = false;
+                    });
+
                     // Otteniamo il valore del codice
                     string value = result.Value;
 
@@ -294,7 +304,7 @@ namespace QRBarcodeScannerApp.ViewModels
             }
             catch (Exception ex)
             {
-                StatusMessage = $"Errore: {ex.Message}";
+                StatusMessage = $"Errore durante l'invio dei dati: [{ex.GetType().Name}] - {ex.Message}";
             }
             finally
             {
