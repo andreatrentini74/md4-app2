@@ -30,7 +30,7 @@
                         <Label Text="Indirizzo IP"/>
                         <Entry Text="{Binding IPAddress}"
                            Placeholder="192.168.1.200"
-                           Keyboard="Numeric"/>
+                           Keyboard="Text"/>
                     </VerticalStackLayout>
                 </Border>
 
