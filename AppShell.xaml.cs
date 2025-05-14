@@ -9,7 +9,7 @@ namespace QRBarcodeScannerApp
         {
             InitializeComponent();
 
-            Routing.RegisterRoute(nameof(ScannerPage), typeof(ScannerPage));
+            Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
             Routing.RegisterRoute(nameof(ConfigPage), typeof(ConfigPage));
         }
 

@@ -1,13 +1,12 @@
-using ZXing.Net.Maui;
+using QRBarcodeScannerApp.ViewModels;
 
 namespace QRBarcodeScannerApp.Pages;
 
 public partial class ScanPage : ContentPage
 {
-	public ScanPage(BarcodeFormat formats)
+	public ScanPage()
 	{
 		InitializeComponent();
-		barcodeReader.Options = new BarcodeReaderOptions { Formats = formats, AutoRotate = true, Multiple = false, TryHarder = true };
-		barcodeReader.IsDetecting = true;
+		BindingContext = new ScanViewModel();
     }
 }

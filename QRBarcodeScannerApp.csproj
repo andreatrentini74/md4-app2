@@ -26,7 +26,7 @@
 		<ApplicationId>com.companyname.qrbarcodescannerapp</ApplicationId>
 
 		<!-- Versions -->
-		<ApplicationDisplayVersion>2.0.3</ApplicationDisplayVersion>
+		<ApplicationDisplayVersion>2.0.4</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
 
 		<!-- To develop, package, and publish an app to the Microsoft Store, see: https://aka.ms/MauiTemplateUnpackaged -->
@@ -79,11 +79,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="BarcodeScanning.Native.Maui" Version="2.1.8" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="11.2.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.60" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.4" />
-		<PackageReference Include="ZXing.Net.Maui" Version="0.4.0" />
-		<PackageReference Include="ZXing.Net.Maui.Controls" Version="0.4.0" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,10 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using QRBarcodeScannerApp.Services;
 using QRBarcodeScannerApp.ViewModels;
-using ZXing.Net.Maui;
 using CommunityToolkit.Maui;
-using ZXing.Net.Maui.Controls;
 using QRBarcodeScannerApp.Pages;
+using BarcodeScanning;
 
 namespace QRBarcodeScannerApp
 {
@@ -16,7 +15,7 @@ namespace QRBarcodeScannerApp
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
-                .UseBarcodeReader()
+                .UseBarcodeScanning()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -49,11 +48,11 @@ namespace QRBarcodeScannerApp
             builder.Services.AddSingleton<ScanService>();
 
             // Registra i ViewModels
-            builder.Services.AddTransient<ScannerViewModel>();
+            builder.Services.AddTransient<MainViewModel>();
             builder.Services.AddTransient<ConfigViewModel>();
 
             // Registra le pagine
-            builder.Services.AddTransient<ScannerPage>();
+            builder.Services.AddTransient<MainPage>();
             builder.Services.AddTransient<ConfigPage>();
 
 #if DEBUG
