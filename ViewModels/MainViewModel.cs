@@ -17,7 +17,7 @@ namespace QRBarcodeScannerApp.ViewModels
         private string _lastPrint;
         private string _statusMessage;
         private bool _isBusy;
-
+        private bool _onlyQrCode = false;
         private readonly ScanService _scanService;
         private readonly AppSettings _settings;
 
@@ -57,6 +57,20 @@ namespace QRBarcodeScannerApp.ViewModels
                 if (_qrCode != value)
                 {
                     _qrCode = value;
+                    OnPropertyChanged();
+                    ((Command)SendDataCommand).ChangeCanExecute();
+                }
+            }
+        }
+
+        public bool OnlyQrCode
+        {
+            get => _onlyQrCode;
+            set
+            {
+                if (_onlyQrCode != value)
+                {
+                    _onlyQrCode = value;
                     OnPropertyChanged();
                     ((Command)SendDataCommand).ChangeCanExecute();
                 }
@@ -277,6 +291,7 @@ namespace QRBarcodeScannerApp.ViewModels
 
                 var scanResult = new ScanResult
                 {
+                    QrCodeOnly = OnlyQrCode,
                     QrCode = QRCode,
                     BarCode = Barcode
                 };
