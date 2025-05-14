@@ -41,10 +41,22 @@
         <AndroidMinSdkVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21</AndroidMinSdkVersion>
         <AndroidTargetSdkVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">34</AndroidTargetSdkVersion>
         <RuntimeIdentifiers Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">android-arm;android-arm64;android-x86;android-x64</RuntimeIdentifiers>
+        <AndroidSigningKeyStore>certificati\md4.keystore</AndroidSigningKeyStore>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-android|AnyCPU'">
 	  <AndroidPackageFormat>apk</AndroidPackageFormat>
+	  <AndroidKeyStore>False</AndroidKeyStore>
+	  <AndroidSigningStorePass>1q2w3e4r</AndroidSigningStorePass>
+	  <AndroidSigningKeyAlias>md4</AndroidSigningKeyAlias>
+	  <AndroidSigningKeyPass>1q2w3e4r</AndroidSigningKeyPass>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-android|AnyCPU'">
+	  <AndroidKeyStore>False</AndroidKeyStore>
+	  <AndroidSigningStorePass>1q2w3e4r</AndroidSigningStorePass>
+	  <AndroidSigningKeyAlias>md4</AndroidSigningKeyAlias>
+	  <AndroidSigningKeyPass>1q2w3e4r</AndroidSigningKeyPass>
 	</PropertyGroup>
 
 	<ItemGroup>

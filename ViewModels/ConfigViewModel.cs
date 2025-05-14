@@ -15,6 +15,8 @@ namespace QRBarcodeScannerApp.ViewModels
         private int _ratio;
         private int _positionX;
         private int _positionY;
+        private int _positionYRiga1;
+        private int _positionYRiga2;
 
         public ConfigViewModel(AppSettings settings)
         {
@@ -25,6 +27,8 @@ namespace QRBarcodeScannerApp.ViewModels
             Ratio = _settings.Ratio;
             PositionX = _settings.PositionX;
             PositionY = _settings.PositionY;
+            PositionYRiga1 = _settings.PositionYRiga1;
+            PositionYRiga2 = _settings.PositionYRiga2;
 
             SaveCommand = new Command(SaveSettings);
             BackCommand = new Command(async () => await Shell.Current.GoToAsync(".."));
@@ -95,6 +99,32 @@ namespace QRBarcodeScannerApp.ViewModels
             }
         }
 
+        public int PositionYRiga1
+        {
+            get => _positionYRiga1;
+            set
+            {
+                if (_positionYRiga1 != value)
+                {
+                    _positionYRiga1 = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public int PositionYRiga2
+        {
+            get => _positionYRiga2;
+            set
+            {
+                if (_positionYRiga2 != value)
+                {
+                    _positionYRiga2 = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
 
         public string StatusMessage
         {
@@ -136,6 +166,8 @@ namespace QRBarcodeScannerApp.ViewModels
                 _settings.Ratio = Ratio;
                 _settings.PositionX = PositionX;
                 _settings.PositionY = PositionY;
+                _settings.PositionYRiga1 = PositionYRiga1;
+                _settings.PositionYRiga2 = PositionYRiga2;
                 _settings.Save();
                 StatusMessage = "Impostazioni salvate con successo!";
             }

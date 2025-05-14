@@ -24,8 +24,8 @@ namespace QRBarcodeScannerApp.Models
             return "{D0420,0700,0400|}\n" +
            "{C|}\n" +
            "{XB00;" + _positionX + "," + _positionY + ",T,L," + _ratio + ",A,0,M2;01|}\n" +
-           "{PV00;0300,0270,0030,0030,B,00,B,P2=" + _QrCode1 + "|}\n" +
-           "{PV00;0300,0300,0030,0030,B,00,B,P2=" + _QrCode2 + "|}\n" +
+           $"{{PV00;0300,{settings.PositionYRiga1:0000},0030,0030,B,00,B,P2=" + _QrCode1 + "|}\n" +
+           $"{{PV00;0300,{settings.PositionYRiga2:0000},0030,0030,B,00,B,P2=" + _QrCode2 + "|}\n" +
            "{RB;^<" + newCodeLength + "^<" + newCode + "|}\n" +
            "{XS;I,0001,0002C6200|}";
         }

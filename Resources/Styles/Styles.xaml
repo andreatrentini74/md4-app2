@@ -49,6 +49,12 @@
         <Setter Property="CornerRadius" Value="8" />
         <Setter Property="FontAttributes" Value="Bold" />
         <Setter Property="Padding" Value="10,5" />
+        <Style.Triggers>
+            <Trigger TargetType="Button" Property="IsEnabled" Value="False">
+                <Setter Property="BackgroundColor" Value="LightGray" />
+                <Setter Property="TextColor" Value="DarkGray" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <Style x:Key="MinorButton" TargetType="Button">

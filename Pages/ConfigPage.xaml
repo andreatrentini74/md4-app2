@@ -85,6 +85,34 @@
                     </VerticalStackLayout>
                 </Border>
 
+                <Border>
+                    <VerticalStackLayout Spacing="0">
+                        <Label Text="Posizione Y Riga 1"/>
+                        <Entry Text="{Binding PositionYRiga1}" 
+                           Keyboard="Numeric">
+                            <Entry.Behaviors>
+                                <behaviors:NumericRangeBehavior Min="1" Max="999" />
+                            </Entry.Behaviors>
+                        </Entry>
+                        <Label Style="{StaticResource SubtitleLabelStyle}"
+                           Text="Range da 1 a 999, default 270"></Label>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border>
+                    <VerticalStackLayout Spacing="0">
+                        <Label Text="Posizione Y Riga 2"/>
+                        <Entry Text="{Binding PositionYRiga2}" 
+                           Keyboard="Numeric">
+                            <Entry.Behaviors>
+                                <behaviors:NumericRangeBehavior Min="1" Max="999" />
+                            </Entry.Behaviors>
+                        </Entry>
+                        <Label Style="{StaticResource SubtitleLabelStyle}"
+                           Text="Range da 1 a 999, default 270"></Label>
+                    </VerticalStackLayout>
+                </Border>
+
                 <Button Text="Salva Configurazione" 
                 Command="{Binding SaveCommand}"
                 IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"

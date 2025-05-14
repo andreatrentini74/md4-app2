@@ -9,6 +9,8 @@ namespace QRBarcodeScannerApp.Services
         public int Ratio { get; set; }
         public int PositionX { get; set; }
         public int PositionY { get; set; }
+        public int PositionYRiga1 { get; set; }
+        public int PositionYRiga2 { get; set; }
 
         public void Save()
         {
@@ -17,6 +19,8 @@ namespace QRBarcodeScannerApp.Services
             Preferences.Default.Set(nameof(Ratio), Ratio);
             Preferences.Default.Set(nameof(PositionX), PositionX);
             Preferences.Default.Set(nameof(PositionY), PositionY);
+            Preferences.Default.Set(nameof(PositionYRiga1), PositionYRiga1);
+            Preferences.Default.Set(nameof(PositionYRiga2), PositionYRiga2);
         }
 
         public static AppSettings Load()
@@ -27,7 +31,9 @@ namespace QRBarcodeScannerApp.Services
                 Port = (ushort)Preferences.Default.Get(nameof(Port), 9100),
                 Ratio = Preferences.Default.Get(nameof(Ratio), 6),
                 PositionX = Preferences.Default.Get(nameof(PositionX), 181),
-                PositionY = Preferences.Default.Get(nameof(PositionY), 20)
+                PositionY = Preferences.Default.Get(nameof(PositionY), 20),
+                PositionYRiga1 = Preferences.Default.Get(nameof(PositionYRiga1), 270),
+                PositionYRiga2 = Preferences.Default.Get(nameof(PositionYRiga2), 300)
             };
         }
     }

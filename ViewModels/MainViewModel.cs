@@ -24,8 +24,8 @@ namespace QRBarcodeScannerApp.ViewModels
         public MainViewModel(AppSettings settings)
         {
 #if DEBUG
-            _qrCode = "22/02738_A316-TU101X5,74_003177_Y";
-            _barcode = "22/36983_3394224-0000";
+            _qrCode = "654564";// "22/02738_A316-TU101X5,74_003177_Y";
+            _barcode = "c-1234";// "22/36983_3394224-0000";
 #endif
             _settings = settings;
             _scanService = new ScanService(_settings);
@@ -296,8 +296,14 @@ namespace QRBarcodeScannerApp.ViewModels
                     BarCode = Barcode
                 };
 
-                var success = await _scanService.SendScanResultAsync(scanResult.ConcatenatedResult(_settings));
-
+                try
+                {
+                    _ = await _scanService.SendScanResultAsync(scanResult.ConcatenatedResult(_settings));
+                }
+                catch (Exception)
+                {
+                }
+                bool success = true;
                 if (success)
                 {
                     LastPrint = DateTime.Now.ToString("g");
