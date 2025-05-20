@@ -11,8 +11,8 @@
 		The Mac App Store will NOT accept apps with ONLY maccatalyst-arm64 indicated;
 		either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
 		<!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
-
 		<OutputType>Exe</OutputType>
+        <Deterministic>true</Deterministic>
 		<RootNamespace>QRBarcodeScannerApp</RootNamespace>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
@@ -26,7 +26,7 @@
 		<ApplicationId>com.companyname.qrbarcodescannerapp</ApplicationId>
 
 		<!-- Versions -->
-		<ApplicationDisplayVersion>2.0.4</ApplicationDisplayVersion>
+		<ApplicationDisplayVersion>2.0.5</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
 
 		<!-- To develop, package, and publish an app to the Microsoft Store, see: https://aka.ms/MauiTemplateUnpackaged -->
@@ -46,14 +46,14 @@
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-android|AnyCPU'">
 	  <AndroidPackageFormat>apk</AndroidPackageFormat>
-	  <AndroidKeyStore>False</AndroidKeyStore>
+	  <AndroidKeyStore>True</AndroidKeyStore>
 	  <AndroidSigningStorePass>1q2w3e4r</AndroidSigningStorePass>
 	  <AndroidSigningKeyAlias>md4</AndroidSigningKeyAlias>
 	  <AndroidSigningKeyPass>1q2w3e4r</AndroidSigningKeyPass>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-android|AnyCPU'">
-	  <AndroidKeyStore>False</AndroidKeyStore>
+	  <AndroidKeyStore>True</AndroidKeyStore>
 	  <AndroidSigningStorePass>1q2w3e4r</AndroidSigningStorePass>
 	  <AndroidSigningKeyAlias>md4</AndroidSigningKeyAlias>
 	  <AndroidSigningKeyPass>1q2w3e4r</AndroidSigningKeyPass>
