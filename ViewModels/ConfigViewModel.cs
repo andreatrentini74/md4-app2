@@ -30,6 +30,7 @@ namespace QRBarcodeScannerApp.ViewModels
             PositionY = _settings.PositionY;
             PositionYRiga1 = _settings.PositionYRiga1;
             PositionYRiga2 = _settings.PositionYRiga2;
+            PositionXTesto = _settings.PositionXTesto;
 
             SaveCommand = new Command(SaveSettings);
             BackCommand = new Command(async () => await Shell.Current.GoToAsync(".."));

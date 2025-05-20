@@ -32,7 +32,7 @@ namespace QRBarcodeScannerApp.ViewModels
 
             ScanQRCommand = new Command(async () => await ScanQRCodeAsync());
             ScanBarcodeCommand = new Command(async () => await ScanBarcodeAsync());
-            SendDataCommand = new Command(async () => await SendDataAsync(), () => !string.IsNullOrEmpty(QRCode) && !string.IsNullOrEmpty(Barcode));
+            SendDataCommand = new Command(async () => await SendDataAsync(), () => !string.IsNullOrEmpty(QRCode) && (OnlyQrCode || !string.IsNullOrEmpty(Barcode)));
             NavigateToConfigCommand = new Command(async () =>
             {
                 try
@@ -238,7 +238,7 @@ namespace QRBarcodeScannerApp.ViewModels
 
             cancelButton.Clicked += (s, e) =>
             {
-                tcs.SetResult(string.Empty);
+                tcs.TrySetResult(string.Empty);
             };
 
             // Handler per il rilevamento del barcode
@@ -251,7 +251,7 @@ namespace QRBarcodeScannerApp.ViewModels
 
                     // Impostiamo il risultato
                     barcodeReader.OnDetectionFinishedCommand = null;
-                    tcs.SetResult(value);
+                    tcs.TrySetResult(value);
                 }
             });
 

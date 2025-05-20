@@ -9,6 +9,22 @@
         <Setter Property="FontFamily" Value="OpenSansRegular" />
         <Setter Property="FontAutoScalingEnabled" Value="True" />
         <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup Name="CommonStates">
+                    <VisualState Name="Normal">
+                        <VisualState.Setters>
+                            <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="TextColor" Value="LightGray" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
     </Style>
 
     <!-- Titolo principale -->
@@ -49,17 +65,64 @@
         <Setter Property="CornerRadius" Value="8" />
         <Setter Property="FontAttributes" Value="Bold" />
         <Setter Property="Padding" Value="10,5" />
-        <Style.Triggers>
-            <Trigger TargetType="Button" Property="IsEnabled" Value="False">
-                <Setter Property="BackgroundColor" Value="LightGray" />
-                <Setter Property="TextColor" Value="DarkGray" />
-            </Trigger>
-        </Style.Triggers>
+        <Setter Property="HeightRequest" Value="60" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup Name="CommonStates">
+                    <VisualState Name="Normal">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="LightGray" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
     </Style>
-
+    
     <Style x:Key="MinorButton" TargetType="Button">
         <Setter Property="BackgroundColor" Value="{StaticResource HdqBlue}" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup Name="CommonStates">
+                    <VisualState Name="Normal">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="{StaticResource HdqBlue}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="LightGray" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
     </Style>
+
+    <!--<Style x:Key="MinorButton" TargetType="ImageButton">
+        <Setter Property="BackgroundColor" Value="{StaticResource HdqBlue}" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup Name="CommonStates">
+                    <VisualState Name="Normal">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="{StaticResource HdqBlue}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="LightGray" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>-->
 
     <Style TargetType="Border">
         <Setter Property="StrokeShape">
