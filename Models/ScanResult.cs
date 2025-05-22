@@ -18,8 +18,9 @@ namespace QRBarcodeScannerApp.Models
             string newCode = this.QrCodeOnly ? this.QrCode : this.QrCode + " " + this.BarCode;
             string newCodeLength = newCode.Length.ToString().PadLeft(4, '0');
 
-            string _QrCode1 = this.QrCode.Substring(0, Math.Min(25, this.QrCode.Length));
-            string _QrCode2 = this.QrCode.Length > 25 ? this.QrCode.Substring(25) : string.Empty;
+            string _QrCode1 = this.QrCode.Substring(0, Math.Min(settings.CaratteriPerRiga, this.QrCode.Length));
+            string _QrCode2 = this.QrCode.Length > settings.CaratteriPerRiga ? this.QrCode.Substring(settings.CaratteriPerRiga) : string.Empty;
+            _QrCode2 = _QrCode2.Substring(0, Math.Min(settings.CaratteriPerRiga, _QrCode2.Length));
 
             return "{D0420,0700,0400|}\n" +
            "{C|}\n" +

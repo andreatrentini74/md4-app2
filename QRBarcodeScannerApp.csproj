@@ -23,10 +23,10 @@
 		<ApplicationTitle>QRBarcodeScannerApp</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.qrbarcodescannerapp</ApplicationId>
+		<ApplicationId>it.trentaduebit.md4.app</ApplicationId>
 
 		<!-- Versions -->
-		<ApplicationDisplayVersion>2.0.5</ApplicationDisplayVersion>
+		<ApplicationDisplayVersion>2.0.6</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
 
 		<!-- To develop, package, and publish an app to the Microsoft Store, see: https://aka.ms/MauiTemplateUnpackaged -->

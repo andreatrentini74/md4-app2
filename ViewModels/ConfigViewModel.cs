@@ -15,6 +15,7 @@ namespace QRBarcodeScannerApp.ViewModels
         private int _ratio;
         private int _positionX;
         private int _positionY;
+        private int _caratteriPerRiga;
         private int _positionYRiga1;
         private int _positionYRiga2;
         private int _positionXTesto;
@@ -28,6 +29,7 @@ namespace QRBarcodeScannerApp.ViewModels
             Ratio = _settings.Ratio;
             PositionX = _settings.PositionX;
             PositionY = _settings.PositionY;
+            CaratteriPerRiga = _settings.CaratteriPerRiga;
             PositionYRiga1 = _settings.PositionYRiga1;
             PositionYRiga2 = _settings.PositionYRiga2;
             PositionXTesto = _settings.PositionXTesto;
@@ -96,6 +98,19 @@ namespace QRBarcodeScannerApp.ViewModels
                 if (_positionY != value)
                 {
                     _positionY = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public int CaratteriPerRiga
+        {
+            get => _caratteriPerRiga;
+            set
+            {
+                if (_caratteriPerRiga != value)
+                {
+                    _caratteriPerRiga = value;
                     OnPropertyChanged();
                 }
             }
@@ -180,6 +195,7 @@ namespace QRBarcodeScannerApp.ViewModels
                 _settings.Ratio = Ratio;
                 _settings.PositionX = PositionX;
                 _settings.PositionY = PositionY;
+                _settings.CaratteriPerRiga = CaratteriPerRiga;
                 _settings.PositionYRiga1 = PositionYRiga1;
                 _settings.PositionYRiga2 = PositionYRiga2;
                 _settings.PositionXTesto = PositionXTesto;

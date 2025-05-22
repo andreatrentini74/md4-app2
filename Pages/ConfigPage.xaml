@@ -87,6 +87,20 @@
 
                 <Border>
                     <VerticalStackLayout Spacing="0">
+                        <Label Text="Caratteri per riga"/>
+                        <Entry Text="{Binding CaratteriPerRiga}" 
+                           Keyboard="Numeric">
+                            <Entry.Behaviors>
+                                <behaviors:NumericRangeBehavior Min="5" Max="50" />
+                            </Entry.Behaviors>
+                        </Entry>
+                        <Label Style="{StaticResource SubtitleLabelStyle}"
+                           Text="Range da 5 a 50, default 20"></Label>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border>
+                    <VerticalStackLayout Spacing="0">
                         <Label Text="Posizione X Righe"/>
                         <Entry Text="{Binding PositionXTesto}" 
                            Keyboard="Numeric">
