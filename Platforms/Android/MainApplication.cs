@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace QRBarcodeScannerApp
+namespace md4
 {
     [Application]
     public class MainApplication : MauiApplication

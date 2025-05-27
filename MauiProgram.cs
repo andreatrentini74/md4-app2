@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
-using QRBarcodeScannerApp.Services;
-using QRBarcodeScannerApp.ViewModels;
+using md4.Services;
+using md4.ViewModels;
 using CommunityToolkit.Maui;
-using QRBarcodeScannerApp.Pages;
+using md4.Pages;
 using BarcodeScanning;
 
-namespace QRBarcodeScannerApp
+namespace md4
 {
     public static class MauiProgram
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QRBarcodeScannerApp.Behaviors
+namespace md4.Behaviors
 {
     public class NumericRangeBehavior : Behavior<Entry>
     {

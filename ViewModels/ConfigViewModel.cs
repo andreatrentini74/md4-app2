@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using QRBarcodeScannerApp.Services;
+using md4.Services;
 
-namespace QRBarcodeScannerApp.ViewModels
+namespace md4.ViewModels
 {
     public class ConfigViewModel : INotifyPropertyChanged
     {

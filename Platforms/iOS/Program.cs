@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace QRBarcodeScannerApp
+namespace md4
 {
     public class Program
     {

@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace QRBarcodeScannerApp
+namespace md4
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate

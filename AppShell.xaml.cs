@@ -1,7 +1,7 @@
 ﻿using Microsoft.Maui.Controls;
-using QRBarcodeScannerApp.Pages;
+using md4.Pages;
 
-namespace QRBarcodeScannerApp
+namespace md4
 {
     public partial class AppShell : Shell
     {

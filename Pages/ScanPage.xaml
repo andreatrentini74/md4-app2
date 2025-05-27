@@ -2,9 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:scanner="clr-namespace:BarcodeScanning;assembly=BarcodeScanning.Native.Maui"
-             xmlns:viewmodels="clr-namespace:QRBarcodeScannerApp.ViewModels"
+             xmlns:viewmodels="clr-namespace:md4.ViewModels"
              x:DataType="viewmodels:ScanViewModel"
-             x:Class="QRBarcodeScannerApp.Pages.ScanPage"
+             x:Class="md4.Pages.ScanPage"
              Title="Scansione">
     <Grid>
         <Grid.RowDefinitions>

@@ -4,11 +4,11 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using BarcodeScanning;
 using Microsoft.Maui.Controls;
-using QRBarcodeScannerApp.Models;
-using QRBarcodeScannerApp.Pages;
-using QRBarcodeScannerApp.Services;
+using md4.Models;
+using md4.Pages;
+using md4.Services;
 
-namespace QRBarcodeScannerApp.ViewModels
+namespace md4.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace QRBarcodeScannerApp.ViewModels
+namespace md4.ViewModels
 {
     public class ScanViewModel : INotifyPropertyChanged
     {

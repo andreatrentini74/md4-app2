@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace QRBarcodeScannerApp.Converters
+namespace md4.Converters
 {
     public class MessageColorConverter : IValueConverter
     {

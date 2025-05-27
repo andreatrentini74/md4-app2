@@ -1,6 +1,6 @@
 ﻿using Microsoft.Maui.Controls;
 
-namespace QRBarcodeScannerApp
+namespace md4
 {
     public partial class App : Application
     {

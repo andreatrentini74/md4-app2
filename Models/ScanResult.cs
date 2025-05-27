@@ -1,6 +1,6 @@
-﻿using QRBarcodeScannerApp.Services;
+﻿using md4.Services;
 
-namespace QRBarcodeScannerApp.Models
+namespace md4.Models
 {
     public class ScanResult
     {

@@ -2,12 +2,12 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:viewmodels="clr-namespace:QRBarcodeScannerApp.ViewModels"
-             xmlns:converters="clr-namespace:QRBarcodeScannerApp.Converters"
-             xmlns:behaviors="clr-namespace:QRBarcodeScannerApp.Behaviors"
-             xmlns:views="clr-namespace:QRBarcodeScannerApp.Views"
+             xmlns:viewmodels="clr-namespace:md4.ViewModels"
+             xmlns:converters="clr-namespace:md4.Converters"
+             xmlns:behaviors="clr-namespace:md4.Behaviors"
+             xmlns:views="clr-namespace:md4.Views"
              x:DataType="viewmodels:ConfigViewModel"
-             x:Class="QRBarcodeScannerApp.Pages.ConfigPage"
+             x:Class="md4.Pages.ConfigPage"
              Title="Configurazione">
 
     <ContentPage.Resources>

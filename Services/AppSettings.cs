@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace QRBarcodeScannerApp.Services
+namespace md4.Services
 {
     public class AppSettings
     {

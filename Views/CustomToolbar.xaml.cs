@@ -1,7 +1,7 @@
-using QRBarcodeScannerApp.ViewModels;
+using md4.ViewModels;
 using System.Reflection;
 
-namespace QRBarcodeScannerApp.Views;
+namespace md4.Views;
 
 public partial class CustomToolbar : ContentView
 {

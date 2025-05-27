@@ -1,7 +1,7 @@
-using QRBarcodeScannerApp.Services;
-using QRBarcodeScannerApp.ViewModels;
+using md4.Services;
+using md4.ViewModels;
 
-namespace QRBarcodeScannerApp.Pages;
+namespace md4.Pages;
 
 public partial class MainPage : ContentPage
 {

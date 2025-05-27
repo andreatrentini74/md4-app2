@@ -1,8 +1,8 @@
 ﻿using System.Net.Http.Json;
 using System.Text;
-using QRBarcodeScannerApp.Models;
+using md4.Models;
 
-namespace QRBarcodeScannerApp.Services
+namespace md4.Services
 {
     public class ScanService
     {
